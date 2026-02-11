@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Cafe</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #6b3e26;
+            color: white;
+            padding: 20px;
+        }
+
+        .deal-section {
+            background: white;
+            margin: 40px auto;
+            padding: 20px;
+            width: 90%;
+            max-width: 500px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .deal-section img {
+            width: 100%;
+            max-width: 400px;
+            border-radius: 10px;
+            margin-top: 15px;
+        }
+
+        footer {
+            margin-top: 40px;
+            padding: 20px;
+            background: #333;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>☕ My Cafe</h1>
+    <p>Fresh Coffee Every Day</p>
+</header>
+
+<div class="deal-section">
+    <h2>Today's Special Deal</h2>
+    <p id="deal-text">Loading deal...</p>
+    <img id="deal-image" src="" alt="Daily Deal">
+</div>
+
+<footer>
+    <p>Visit us today!</p>
+</footer>
+
+<script>
+fetch("deal.json?time=" + new Date().getTime())
+    .then(response => response.json())
+    .then(data => {
+        document.getElementById("deal-text").textContent = data.text;
+        document.getElementById("deal-image").src = data.image;
+    })
+    .catch(error => {
+        document.getElementById("deal-text").textContent = "Today's deal is not available.";
+        console.error("Error loading deal:", error);
+    });
+</script>
+
+</body>
+</html>
